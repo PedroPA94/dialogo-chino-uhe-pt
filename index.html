@@ -244,7 +244,7 @@
           map.getCanvas().style.cursor = '';
         });
 
-        map.on(interaction, 'layer1', (e) => {
+        map.on('touchstart', 'plants', (e) => {
           map.getCanvas().style.cursor = 'pointer';
           var latitude = e.features[0].properties.latitude;
           var longitude = e.features[0].properties.longitude;
