@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <title>Hidrelétricas na Amazônia</title>
+    <meta name="description" content="Hidrelétricas na Amazônia">
+    <meta name="author" content="Pedro Papini"> <!--Based on code by Julia Janicki git: jhjanicki-->
+    <link rel="shortcut icon" href="#">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet"> 
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Enriqueta:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700&display=swap" rel="stylesheet">
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link href='./css/styles.css' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+    <div id='map'></div>
+    <div id='logo'>
+      <img src="./img/logo_PT.png"/> 
+    </div>
+    <div id='console'>
+      <div class="verticalLine">
+        <span id="toggleConsole">
+          <img src="./img/toggle.png"/>
+        </span>
+        <h1 id='title'>Hidrelétricas na Amazônia</h1>
+        <div class='row itemWrapper'>
+          <img class='item2' src="./img/legend.svg"/>
+          <h2 class="legend">Amazônia Legal</h2>
+        </div>
+        <div class='row itemWrapper'>
+          <h2 class="subtitle">Origem do investimento</h2>
+        </div>
+        <div class="itemWrapper">
+          <div class="itemWrapper">
+            <div class="circlesWrapper item">
+              <div class="circlesRegion china"></div>
+            </div>
+            <div class="circlesLegend item">
+              <h2 id="china">China</h2>
+            </div>
+          </div>
+        </div>
+        <div class="itemWrapper">
+          <div class="itemWrapper">
+            <div class="circlesWrapper item">
+              <div class="circlesRegion"></div>
+            </div>
+            <div class="circlesLegend item">
+              <h2 id="otherInvestors">Outros investidores</h2>
+            </div>
+          </div>
+        </div>
+        <div class='row itemWrapper'>
+          <h2 class="subtitle">Situação da hidrelétrica</h2>
+        </div>
+        <div class="itemWrapper">
+          <div class='row toggle item filters' id="filterOperational">
+            <input id='' type="radio" value="filterOn" name="toggleOperational" checked>
+            <input id='' type="radio" value="filterOff" name="toggleOperational">
+            <div class="toggle__pointer op__pointer"></div>
+          </div>
+          <div class="item">
+            <h2 id="operational">Em operação</h2>
+          </div>
+        </div>
+        <div class="itemWrapper">
+          <div class='row toggle item filters' id="filterProject">
+            <input id='' type="radio" value="filterOn" name="toggleProject" checked>
+            <input id='' type="radio" value="filterOff" name="toggleProject">
+            <div class="toggle__pointer pr__pointer"></div>
+          </div>
+          <div class="item">
+            <h2 id="project">Projeto/Construção</h2>
+          </div>
+        </div>
+        <div class="itemWrapper">
+          <div class='row toggle item filters' id="filterAvaliable">
+            <input id='' type="radio" value="filterOn" name="toggleAvaliable" checked>
+            <input id='' type="radio" value="filterOff" name="toggleAvaliable">
+            <div class="toggle__pointer av__pointer"></div>
+          </div>
+          <div class="item">
+            <h2 id="avaliable">Disponível para projeto</h2>
+          </div>
+        </div>
+        <div class="instruction itemWrapper" id="instruction">
+          <p class="item">Clique nos círculos para ver o nome da usina e mais informações</p>
+        </div>
+        <div class='instruction itemWrapper'>
+          <h2 class='dataSource'>Fonte: SIGEL/ANEEL</h2>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.14.2/d3.js"></script>
+    <script src="./data/uhe.js"></script>
+    <script>
+      var windowWidth = $(window).width();
+      var windowHeight = $(window).height();
+      var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+      var mobile = false;
+      var zoomLevel;
+      var interaction;
+
+      if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        mobile = true;
+      }
+
+      if (mobile) {
+        zoomLevel = 3
+        interaction = 'touchstart'
+      } else {
+        zoomLevel = 4
+        interaction = 'click'
+      };
+
+      var map;
+      var popup;
+
+      mapboxgl.accessToken = 'pk.eyJ1IjoicGVkcm9wYTk0IiwiYSI6ImNrOGc5czF4MDBiOW0zZW80aWx6NmZ2cXAifQ.oJoUo_dnmGcR-druhMYymQ';
+
+      map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/pedropa94/ckyxa1i51003514lbrchyvs3s', // replace this with your style URL
+        center: [-60.905747, -7.514815], // initial map center in [lon, lat]
+        zoom: zoomLevel,
+        minZoom: 2 
+        });
+
+      var consoleHeight = $("#console").height() / 2;
+      $("#toggleConsole").css("top", consoleHeight);
+
+      map.on('load', function()  {
+        init();
+        $("#toggleConsole").click(function () {
+        $("#console").toggleClass("active");
+        $("#toggleConsole img").toggleClass("flip");
+        });
+      });
+
+      function init() {   
+
+        $('#loading').hide();
+
+        var geoJsonData = {
+          'type': 'FeatureCollection',
+          'features': []
+        };
+
+        uhe.forEach(function (row) {
+          var feature = {
+            'type': 'Feature',
+            'properties': {
+              'longitude': +row.long,
+              'latitude': +row.latitude,
+              'owner': row.owner, // antigo company
+              'year': row.operation, // antigo place
+              'ceg': row.ceg, //antigo SIF
+              'status': row.status,
+              'name': row.name,
+              'river': row.river,
+              'power': row.power_mw,
+              'china': row.china_investment,
+              'detailedStatus': row.status_detail
+            },
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [+row.long, +row.latitude],
+            }
+          };
+          geoJsonData['features'].push(feature);
+        });
+
+        map.addLayer({
+          id: 'plants',
+          type: 'circle',
+          source: {
+            type: 'geojson',
+            data: geoJsonData
+          },
+          paint: {
+            'circle-stroke-color': '#000000',
+            'circle-stroke-width': [
+              "case",
+              ["==", ["get", "china"], "y"],
+              2,
+              1
+            ],
+            'circle-stroke-opacity': [
+              "case",
+              ["==", ["get", "china"], "y"],
+              1,
+              0.5
+            ],
+            "circle-color": [
+              "case",
+              ["==", ["get", "status"], "Operação"],
+              "#FB9159",
+              ["==", ["get", "status"], "Projeto"],
+              '#189B68',
+              '#9573DE'
+            ],
+            'circle-radius': 7,
+            'circle-opacity': 0.85
+          }
+        });
+            
+        var activeStatuses = ['Operação', 'Disponível', 'Projeto'];
+          
+        function statusFilter(filterName, statusName) {
+          document.getElementById(filterName).addEventListener('change', function (e) {
+            if(e.target.value === 'filterOn') {
+              if(activeStatuses.includes(statusName) == false) {
+                activeStatuses.push(statusName);
+              }
+              map.setFilter('plants', ['in', ['get', 'status'], ['literal', activeStatuses]]);
+            } else {
+              if(activeStatuses.includes(statusName)) {
+                index = activeStatuses.indexOf(statusName);
+                activeStatuses.splice(index, 1);
+              }
+              map.setFilter('plants', ['in', ['get', 'status'], ['literal', activeStatuses]]);
+            };
+          });
+        };                 
+
+        statusFilter('filterOperational', 'Operação')
+        statusFilter('filterProject', 'Projeto')
+        statusFilter('filterAvaliable', 'Disponível')         
+
+        map.on('mouseenter', 'plants', (e) => {
+          map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', 'plants', () => {                    
+          map.getCanvas().style.cursor = '';
+        });
+
+        map.on(interaction, 'plants', (e) => {
+          map.getCanvas().style.cursor = 'pointer';
+          var latitude = e.features[0].properties.latitude;
+          var longitude = e.features[0].properties.longitude;
+          var usina = e.features[0].properties.name;
+          var river = e.features[0].properties.river;
+          var owner = e.features[0].properties.owner;
+          var status = e.features[0].properties.status;
+          var detailedStatus = e.features[0].properties.detailedStatus;
+          //   var ceg = e.features[0].properties.ceg;
+          var year = e.features[0].properties.year;
+          var power = e.features[0].properties.power;
+          //   var china = e.features[0].properties.china
+
+          while (Math.abs(e.lngLat.lng - latitude) > 180) {
+            latitude += e.lngLat.lng > latitude ? 360 : -360;
+          }
+
+          var popupClass;
+          var statusColor;
+          
+          if (status == 'Operação') {
+            popupClass = 'Operational';
+            statusColor = '#FB9159';
+          } else if (status == 'Projeto') {
+            popupClass = 'Project';
+            statusColor = '#189B68';
+          } else {
+            popupClass = 'Avaliable';
+            statusColor = '#9573DE';
+          };
+
+          popup = new mapboxgl.Popup({
+            closeButton: true,
+            closeOnClick: true,
+            className: popupClass
+          })
+          .setHTML('<h3 class="popupClass">' + usina + '</h3>' +
+                  '<h4><b>Início da operação</b>: ' + year + '<br>' +
+                  '<b>Potência</b>: ' + power.slice(0, -3) + 'MW<br>' + 
+                  '<b>Rio</b>: ' + river + '<br>' +
+                  '<b>Situação</b>: ' + detailedStatus + '<br>' +
+                  '<b>Proprietário(s)</b>: ' + owner + '</h4>')
+          .setLngLat([longitude, latitude])
+          .addTo(map);
+
+          $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
+                
+        });
+      };
+    
+    </script>
+  </body>
+
+  <div id="loading">
+    <img id="loading-image" src="./img/load.gif" alt="Loading..." />
+  </div>
+
+</html>

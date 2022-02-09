@@ -1,0 +1,422 @@
+body {
+    margin: 0;
+    padding: 0; 
+    font-family: 'Work Sans', serif;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+h1 {
+    font-size: 17px;
+    line-height: 25px;
+}
+
+h2 {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.legend {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#console {
+    position: absolute;
+    width: 300px;
+    margin: 10px;
+    padding: 10px 20px 10px 30px;
+    background-color: #F0F0F1;
+    border-radius: 5px;
+    z-index: 15;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 1px 1px 0 rgba(66, 66, 66, 0.08), 0 1px 3px 1px rgba(66, 66, 66, 0.16);
+}
+
+.active {
+    transform: translate3d(-280px, 0, 0);
+    transition: 0.3s ease-in-out;
+}
+
+.itemWrapper {
+    margin-top: -20px;
+}
+
+#toggleConsole {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+}
+
+#toggleConsole img {
+    width: 16px;
+    opacity: 0.7;
+}
+
+#toggleConsole img:hover {
+    opacity: 0.5;
+    transition: all .5s ease;
+    cursor: pointer;
+}
+
+.toggle {
+    position: relative;
+    height: 14px;
+    width: 35px;
+    border-radius: 15px;
+    background: #cfcfcf;
+    margin: 8px 0;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 100%;
+    height: 200%;
+    position: absolute;
+    top: -7px;
+    left: 0;
+    z-index: 2;
+    margin: 0
+}
+
+.toggle input:hover {
+    cursor: pointer;
+}
+
+.toggle input:nth-child(2):checked {
+    z-index: 1;
+}
+
+.toggle__pointer {
+    position: absolute;
+    top: -3.5px;
+    left: 18px;
+    width: 20px;
+    height: 20px;   
+    border-radius: 15px; 
+    -webkit-transition: left .15s ease-out;
+    transition: left .15s ease-out;
+}
+
+.op__pointer {
+    background-color: #FB9159;
+}
+
+.pr__pointer {
+    background-color: #189B68;
+}
+
+.av__pointer {
+    background-color: #9573DE;
+}
+
+.toggle input:nth-child(2):checked+.toggle__pointer {
+    left: 0px;
+    background-color: #777777;
+}
+
+.circlesWrapper {
+    position: relative;
+    height: 14px;
+    width: 14px;
+    border-radius: 15px;
+    margin: 20px 0 10px 0;
+}
+
+.circlesRegion {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.circlesRegion.china {
+    border: 3px solid black;
+}
+
+.circlesLegend {
+    margin-top: 5px;
+    margin-left: -3px;
+}
+
+.flip {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    opacity: 1;
+}
+
+#console h1,
+#console h2 {
+    text-align: left;
+}
+
+.verticalLine {
+    margin-right: 5px;
+    border-right: 0.3px solid #ECE8E1;
+}
+
+#title {
+    font-family: 'Enriqueta', serif;
+    color: #0c1b34;
+    font-weight: 700;
+    margin-left: -10px;
+    margin-bottom: 15px;
+}
+
+.mapboxgl-popup {
+    max-width: 300px !important;
+    font-family: 'Work Sans', sans-serif;
+    text-align: left;
+    z-index: 20;
+    border-radius: 5px;
+}
+
+.mapboxgl-popup-content {
+    font-family: 'Work Sans', sans-serif;
+    padding: 0;
+}
+
+.mapboxgl-popup-content h3 {
+    text-align: center;
+    font-size: 15px;
+    margin: auto;
+    display: block;
+    padding: 10px;
+    font-weight: 700;
+    margin-top: -5px;
+    color: #FFF9E0;
+}
+
+.mapboxgl-popup-content h4 {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.mapboxgl-popup.Operational h3{
+    background-color: #FB9159;
+}
+
+.mapboxgl-popup.Project h3{
+    background-color: #189B68;
+}
+
+.mapboxgl-popup.Avaliable h3{
+    background-color: #9573DE;
+}
+
+.mapboxgl-container {
+    cursor: pointer;
+}
+
+.mapboxgl-popup-anchor-top>.mapboxgl-popup-content {
+    margin-top: 3px;
+}
+
+.mapboxgl-popup-close-button {
+    transform: scale(1.5);
+    color: #e2e2e2;
+    padding: 0px;
+    padding-bottom: 20px;
+    margin-right: 7px;   
+}
+
+.mapboxgl-popup-close-button:hover,
+.mapboxgl-popup-close-button:active,
+.mapboxgl-popup-close-button:target {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+.filters {
+    margin-top: 20px;
+}
+
+.instruction {
+    margin-left: -15px;
+    margin-top: 20px;
+}
+
+.instruction p {
+    color: #007979;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.item2 {
+    display: inline-block;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 14px;
+    margin-bottom: 2px
+}
+
+.dataSource {
+    font-size: 10px;
+    color: #5a5a5a;
+}
+
+.popupTitle {
+    font-family: 'Enriqueta', serif;
+}
+
+#loading {
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    opacity: .7;
+    background-color: #fff;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#loading-image {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: calc(50vh - 80px);
+    z-index: 100;
+}
+
+#logo {
+    position: absolute;
+    bottom: 22px;
+    right: 0px;
+    z-index: 5;
+}
+
+#logo img {
+    width: 120px;
+}
+
+@media screen and (max-width: 800px) {
+
+    #console {
+        width: 250px;
+    }
+
+    .active {
+        transform: translate3d(-230px, 0, 0);
+    }
+
+    h1 {
+        font-size: 15px;
+    }
+
+    h2 {
+        font-size: 11.5px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    .legend {
+        font-size: 13px;
+    }
+
+    #console {
+        padding: 10px 20px;
+    }
+
+    #title {
+        margin-top: -10px;
+    }
+
+    .mapboxgl-popup {
+        max-width: 250px !important;
+    }
+
+} 
+
+@media screen and (max-width: 600px) {
+
+    body {
+        font-size: 11px !important;
+    }
+
+    #title {
+        font-size: 13px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    .legend {
+        font-size: 12px;
+    }
+
+    .active {
+        transform: translate3d(-230px, 0, 0);
+    }
+
+    .label {
+        font-size: 10px;
+        margin-left: -5px;
+    }
+
+    .item2 {
+        width: 15px;
+        height: 15px;
+    }
+
+    h1 {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 11.5px;
+    }
+
+    .instruction p {
+        font-size: 10px;
+    }
+
+    #logo {
+        position: absolute;
+        bottom: 15px;
+        right: 0px;
+    }
+
+    #logo img {
+        width: 100px;
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+
+    h2 {
+        font-size: 10.5px;
+    }
+    
+}
