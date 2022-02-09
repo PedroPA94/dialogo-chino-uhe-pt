@@ -130,7 +130,7 @@
       map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/pedropa94/ckyxa1i51003514lbrchyvs3s', // replace this with your style URL
-        center: [-60.905747, -7.514815], // initial map center in [lon, lat]
+        center: [-57.905747, -7.514815], // initial map center in [lon, lat]
         zoom: zoomLevel,
         minZoom: 2 
         });
@@ -244,7 +244,7 @@
           map.getCanvas().style.cursor = '';
         });
 
-        map.on('touchstart', 'plants', (e) => {
+        map.on(interaction, 'plants', (e) => {
           map.getCanvas().style.cursor = 'pointer';
           var latitude = e.features[0].properties.latitude;
           var longitude = e.features[0].properties.longitude;
