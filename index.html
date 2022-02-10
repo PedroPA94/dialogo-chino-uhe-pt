@@ -122,16 +122,16 @@
         interaction = 'click'
       };*/
 
-      var map;
-      var popup;
+     // var map;
+     // var popup;
 
       mapboxgl.accessToken = 'pk.eyJ1IjoicGVkcm9wYTk0IiwiYSI6ImNrOGc5czF4MDBiOW0zZW80aWx6NmZ2cXAifQ.oJoUo_dnmGcR-druhMYymQ';
 
-      map = new mapboxgl.Map({
+     const map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/pedropa94/ckyxa1i51003514lbrchyvs3s', // replace this with your style URL
         center: [-58, -7.5], // initial map center in [lon, lat]
-        zoom: 4,
+        zoom: 3,
         minZoom: 2 
         });
 
@@ -276,7 +276,7 @@
             statusColor = '#9573DE';
           };
 
-          popup = new mapboxgl.Popup({
+          const popup = new mapboxgl.Popup({
             closeButton: true,
             closeOnClick: true,
             className: popupClass
