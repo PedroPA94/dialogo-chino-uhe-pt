@@ -210,7 +210,7 @@ body {
 }
 
 .dataSource {
-    font-size: 10px;
+    font-size: 10px !important;
     color: #5a5a5a;
 }
 
