@@ -106,7 +106,7 @@
       var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);*/
 
-      var mobile = false;
+      /*var mobile = false;
       var zoomLevel;
       var interaction;
 
@@ -120,7 +120,7 @@
       } else {
         zoomLevel = 4
         interaction = 'click'
-      };
+      };*/
 
       var map;
       var popup;
@@ -130,8 +130,8 @@
       map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/pedropa94/ckyxa1i51003514lbrchyvs3s', // replace this with your style URL
-        center: [-57.905747, -7.514815], // initial map center in [lon, lat]
-        zoom: zoomLevel,
+        center: [-58, -7.5], // initial map center in [lon, lat]
+        zoom: 4,
         minZoom: 2 
         });
 
