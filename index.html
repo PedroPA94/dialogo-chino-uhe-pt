@@ -101,30 +101,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.14.2/d3.js"></script>
     <script src="./data/uhe.js"></script>
     <script>
-      /*var windowWidth = $(window).width();
-      var windowHeight = $(window).height();
-      var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);*/
-
-      /*var mobile = false;
-      var zoomLevel;
-      var interaction;
-
-      if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        mobile = true;
-      }
-
-      if (mobile) {
-        zoomLevel = 3
-        interaction = 'touchstart'
-      } else {
-        zoomLevel = 4
-        interaction = 'click'
-      };*/
-
-     // var map;
-     // var popup;
-
+      
       mapboxgl.accessToken = 'pk.eyJ1IjoicGVkcm9wYTk0IiwiYSI6ImNrOGc5czF4MDBiOW0zZW80aWx6NmZ2cXAifQ.oJoUo_dnmGcR-druhMYymQ';
 
      const map = new mapboxgl.Map({
@@ -159,7 +136,7 @@
           var feature = {
             'type': 'Feature',
             'properties': {
-              'longitude': +row.long,
+              'longitude': +row.longitude,
               'latitude': +row.latitude,
               'owner': row.owner, // antigo company
               'year': row.operation, // antigo place
@@ -173,7 +150,7 @@
             },
             'geometry': {
               'type': 'Point',
-              'coordinates': [+row.long, +row.latitude],
+              'coordinates': [+row.longitude, +row.latitude],
             }
           };
           geoJsonData['features'].push(feature);
@@ -292,56 +269,6 @@
 
           $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
         });
-      /*  if (mobile) {
-          map.on('touchstart', 'layer1', (e) => {
-            map.getCanvas().style.cursor = 'pointer';
-            var latitude = e.features[0].properties.latitude;
-            var longitude = e.features[0].properties.longitude;
-            var usina = e.features[0].properties.name;
-            var river = e.features[0].properties.river;
-            var owner = e.features[0].properties.owner;
-            var status = e.features[0].properties.status;
-            var detailedStatus = e.features[0].properties.detailedStatus;
-            //   var ceg = e.features[0].properties.ceg;
-            var year = e.features[0].properties.year;
-            var power = e.features[0].properties.power;
-            //   var china = e.features[0].properties.china
-
-            while (Math.abs(e.lngLat.lng - latitude) > 180) {
-              latitude += e.lngLat.lng > latitude ? 360 : -360;
-            }
-
-            var popupClass;
-            var statusColor;
-
-            if (status == 'Operação') {
-              popupClass = 'Operational';
-              statusColor = '#FB9159';
-            } else if (status == 'Projeto') {
-              popupClass = 'Project';
-              statusColor = '#189B68';
-            } else {
-              popupClass = 'Avaliable';
-              statusColor = '#9573DE';
-            };
-
-            popup = new mapboxgl.Popup({
-              closeButton: true,
-              closeOnClick: true,
-              className: popupClass
-            })
-            .setHTML('<h3 class="popupClass">' + usina + '</h3>' +
-                    '<h4><b>Início da operação</b>: ' + year + '<br>' +
-                    '<b>Potência</b>: ' + power.slice(0, -3) + 'MW<br>' + 
-                    '<b>Rio</b>: ' + river + '<br>' +
-                    '<b>Situação</b>: ' + detailedStatus + '<br>' +
-                    '<b>Proprietário(s)</b>: ' + owner + '</h4>')
-            .setLngLat([longitude, latitude])
-            .addTo(map);
-
-            $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
-          });
-        };*/
       };
     
     </script>
