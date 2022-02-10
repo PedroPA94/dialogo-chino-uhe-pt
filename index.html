@@ -291,9 +291,9 @@
           .addTo(map);
 
           $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
-          
-          if (mobile) {
-            map.on('touchstart', 'layer1', (e) => {
+        });
+        if (mobile) {
+          map.on('touchstart', 'layer1', (e) => {
             map.getCanvas().style.cursor = 'pointer';
             var latitude = e.features[0].properties.latitude;
             var longitude = e.features[0].properties.longitude;
@@ -340,8 +340,8 @@
             .addTo(map);
 
             $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
-          };
-        });
+          });
+        };
       };
     
     </script>
