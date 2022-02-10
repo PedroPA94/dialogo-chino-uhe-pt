@@ -11,15 +11,21 @@ body {
     width: 100%;
 }
 
-h1 {
+
+
+/* console styles */
+
+#console h1 {
     font-size: 17px;
     line-height: 25px;
+    text-align: left;
 }
 
-h2 {
+#console h2 {
     font-size: 14px;
     line-height: 20px;
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .subtitle {
@@ -159,11 +165,6 @@ h2 {
     opacity: 1;
 }
 
-#console h1,
-#console h2 {
-    text-align: left;
-}
-
 .verticalLine {
     margin-right: 5px;
     border-right: 0.3px solid #ECE8E1;
@@ -176,6 +177,46 @@ h2 {
     margin-left: -10px;
     margin-bottom: 15px;
 }
+
+.filters {
+    margin-top: 20px;
+}
+
+.instruction {
+    margin-left: -15px;
+    margin-top: 20px;
+}
+
+.instruction p {
+    color: #007979;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.item2 {
+    display: inline-block;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 14px;
+    margin-bottom: 2px
+}
+
+.dataSource {
+    font-size: 10px;
+    color: #5a5a5a;
+}
+
+
+
+/* mapbox styles */
 
 .mapboxgl-popup {
     max-width: 300px !important;
@@ -245,45 +286,9 @@ h2 {
     transition: all 0.5s ease;
 }
 
-.filters {
-    margin-top: 20px;
-}
 
-.instruction {
-    margin-left: -15px;
-    margin-top: 20px;
-}
 
-.instruction p {
-    color: #007979;
-    font-weight: 700;
-    font-size: 12px;
-}
-
-.item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
-.item2 {
-    display: inline-block;
-    font-size: 12px;
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    margin-left: 14px;
-    margin-bottom: 2px
-}
-
-.dataSource {
-    font-size: 10px;
-    color: #5a5a5a;
-}
-
-.popupTitle {
-    font-family: 'Enriqueta', serif;
-}
+/* other */
 
 #loading {
     top: 0;
@@ -317,21 +322,25 @@ h2 {
     width: 120px;
 }
 
+
 @media screen and (max-width: 800px) {
 
+    /* console */
+    
     #console {
         width: 250px;
+        padding: 10px 20px;
     }
 
     .active {
         transform: translate3d(-230px, 0, 0);
     }
 
-    h1 {
+    #console h1 {
         font-size: 15px;
     }
 
-    h2 {
+    #console h2 {
         font-size: 11.5px;
     }
 
@@ -343,14 +352,13 @@ h2 {
         font-size: 13px;
     }
 
-    #console {
-        padding: 10px 20px;
-    }
-
     #title {
         margin-top: -10px;
     }
 
+    
+    /* mapbox */
+    
     .mapboxgl-popup {
         max-width: 250px !important;
     }
@@ -363,6 +371,9 @@ h2 {
         font-size: 11px !important;
     }
 
+    
+    /* console */
+    
     #title {
         font-size: 13px;
     }
@@ -375,32 +386,22 @@ h2 {
         font-size: 12px;
     }
 
-    .active {
-        transform: translate3d(-230px, 0, 0);
-    }
-
-    .label {
-        font-size: 10px;
-        margin-left: -5px;
-    }
-
     .item2 {
         width: 15px;
         height: 15px;
     }
 
-    h1 {
+    #console h1 {
         font-size: 14px;
-    }
-
-    h2 {
-        font-size: 11.5px;
     }
 
     .instruction p {
         font-size: 10px;
     }
 
+    
+    /* other */
+    
     #logo {
         position: absolute;
         bottom: 25px;
@@ -415,7 +416,7 @@ h2 {
 
 @media screen and (max-width: 500px) {
 
-    h2 {
+    #console h2 {
         font-size: 10.5px;
     }
     
