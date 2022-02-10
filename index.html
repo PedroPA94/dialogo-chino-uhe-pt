@@ -105,8 +105,8 @@
       mapboxgl.accessToken = 'pk.eyJ1IjoicGVkcm9wYTk0IiwiYSI6ImNrOGc5czF4MDBiOW0zZW80aWx6NmZ2cXAifQ.oJoUo_dnmGcR-druhMYymQ';
 
      const map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/pedropa94/ckyxa1i51003514lbrchyvs3s', // replace this with your style URL
+        container: 'map',
+        style: 'mapbox://styles/pedropa94/ckyxa1i51003514lbrchyvs3s',
         center: [-58, -7.5], // initial map center in [lon, lat]
         zoom: 3,
         minZoom: 2 
@@ -138,9 +138,9 @@
             'properties': {
               'longitude': +row.longitude,
               'latitude': +row.latitude,
-              'owner': row.owner, // antigo company
-              'year': row.operation, // antigo place
-              'ceg': row.ceg, //antigo SIF
+              'owner': row.owner,
+              'year': row.operation,
+              'ceg': row.ceg,
               'status': row.status,
               'name': row.name,
               'river': row.river,
@@ -167,19 +167,19 @@
             'circle-stroke-color': '#000000',
             'circle-stroke-width': [
               "case",
-              ["==", ["get", "china"], "y"],
+              ["==", ["get", "china"], "y"], // stroke-width based on Chinese investment
               2,
               1
             ],
             'circle-stroke-opacity': [
               "case",
-              ["==", ["get", "china"], "y"],
+              ["==", ["get", "china"], "y"], // stroke-opacity based on Chinese investment
               1,
               0.5
             ],
             "circle-color": [
               "case",
-              ["==", ["get", "status"], "Operação"],
+              ["==", ["get", "status"], "Operação"], // setting the circle-color based on the plant status
               "#FB9159",
               ["==", ["get", "status"], "Projeto"],
               '#189B68',
@@ -192,6 +192,7 @@
             
         var activeStatuses = ['Operação', 'Disponível', 'Projeto'];
           
+        // filters the layer based on the statuses toggled on the console
         function statusFilter(filterName, statusName) {
           document.getElementById(filterName).addEventListener('change', function (e) {
             if(e.target.value === 'filterOn') {
@@ -230,10 +231,8 @@
           var owner = e.features[0].properties.owner;
           var status = e.features[0].properties.status;
           var detailedStatus = e.features[0].properties.detailedStatus;
-          //   var ceg = e.features[0].properties.ceg;
           var year = e.features[0].properties.year;
           var power = e.features[0].properties.power;
-          //   var china = e.features[0].properties.china
 
           while (Math.abs(e.lngLat.lng - latitude) > 180) {
             latitude += e.lngLat.lng > latitude ? 360 : -360;
@@ -242,6 +241,7 @@
           var popupClass;
           var statusColor;
           
+          // checks the feature status to set the popup h3 background-color and tip color
           if (status == 'Operação') {
             popupClass = 'Operational';
             statusColor = '#FB9159';
