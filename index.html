@@ -101,10 +101,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.14.2/d3.js"></script>
     <script src="./data/uhe.js"></script>
     <script>
-      var windowWidth = $(window).width();
+      /*var windowWidth = $(window).width();
       var windowHeight = $(window).height();
       var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);*/
 
       var mobile = false;
       var zoomLevel;
@@ -292,7 +292,7 @@
 
           $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
         });
-        if (mobile) {
+      /*  if (mobile) {
           map.on('touchstart', 'layer1', (e) => {
             map.getCanvas().style.cursor = 'pointer';
             var latitude = e.features[0].properties.latitude;
@@ -341,7 +341,7 @@
 
             $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
           });
-        };
+        };*/
       };
     
     </script>
