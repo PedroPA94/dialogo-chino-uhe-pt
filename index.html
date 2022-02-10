@@ -244,7 +244,7 @@
           map.getCanvas().style.cursor = '';
         });
 
-        map.on(interaction, 'plants', (e) => {
+        map.on('click', 'plants', (e) => {
           map.getCanvas().style.cursor = 'pointer';
           var latitude = e.features[0].properties.latitude;
           var longitude = e.features[0].properties.longitude;
@@ -291,7 +291,56 @@
           .addTo(map);
 
           $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
+          
+          if (mobile) {
+            map.on('touchstart', 'layer1', (e) => {
+            map.getCanvas().style.cursor = 'pointer';
+            var latitude = e.features[0].properties.latitude;
+            var longitude = e.features[0].properties.longitude;
+            var usina = e.features[0].properties.name;
+            var river = e.features[0].properties.river;
+            var owner = e.features[0].properties.owner;
+            var status = e.features[0].properties.status;
+            var detailedStatus = e.features[0].properties.detailedStatus;
+            //   var ceg = e.features[0].properties.ceg;
+            var year = e.features[0].properties.year;
+            var power = e.features[0].properties.power;
+            //   var china = e.features[0].properties.china
 
+            while (Math.abs(e.lngLat.lng - latitude) > 180) {
+              latitude += e.lngLat.lng > latitude ? 360 : -360;
+            }
+
+            var popupClass;
+            var statusColor;
+
+            if (status == 'Operação') {
+              popupClass = 'Operational';
+              statusColor = '#FB9159';
+            } else if (status == 'Projeto') {
+              popupClass = 'Project';
+              statusColor = '#189B68';
+            } else {
+              popupClass = 'Avaliable';
+              statusColor = '#9573DE';
+            };
+
+            popup = new mapboxgl.Popup({
+              closeButton: true,
+              closeOnClick: true,
+              className: popupClass
+            })
+            .setHTML('<h3 class="popupClass">' + usina + '</h3>' +
+                    '<h4><b>Início da operação</b>: ' + year + '<br>' +
+                    '<b>Potência</b>: ' + power.slice(0, -3) + 'MW<br>' + 
+                    '<b>Rio</b>: ' + river + '<br>' +
+                    '<b>Situação</b>: ' + detailedStatus + '<br>' +
+                    '<b>Proprietário(s)</b>: ' + owner + '</h4>')
+            .setLngLat([longitude, latitude])
+            .addTo(map);
+
+            $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
+          };
         });
       };
     
