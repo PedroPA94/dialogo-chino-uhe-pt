@@ -167,13 +167,13 @@
             'circle-stroke-color': '#000000',
             'circle-stroke-width': [
               "case",
-              ["==", ["get", "china"], "y"], // stroke-width based on Chinese investment
+              ["==", ["get", "china"], "y"], // stroke-width based on the origin of the investment
               2,
               1
             ],
             'circle-stroke-opacity': [
               "case",
-              ["==", ["get", "china"], "y"], // stroke-opacity based on Chinese investment
+              ["==", ["get", "china"], "y"], // stroke-opacity based on the origin of the investment
               1,
               0.5
             ],
