@@ -11,7 +11,7 @@ var uhe = [
     "longitude": -51.775,
     "status": "Operação",
     "status_detail": "Operação",
-    "china_investment": "y"
+    "china_investment": "n"
   },
   {
     "name": "Tucuruí",
@@ -25,7 +25,7 @@ var uhe = [
     "longitude": -49.64312078,
     "status": "Operação",
     "status_detail": "Operação",
-    "china_investment": "y"
+    "china_investment": "n"
   },
   {
     "name": "São Luiz do Tapajós",
@@ -39,7 +39,7 @@ var uhe = [
     "longitude": -56.24055459,
     "status": "Projeto",
     "status_detail": "EVTE aceito",
-    "china_investment": "y"
+    "china_investment": "n"
   },
   {
     "name": "Jirau",
@@ -221,7 +221,7 @@ var uhe = [
     "longitude": -48.37196007,
     "status": "Operação",
     "status_detail": "Operação",
-    "china_investment": "n"
+    "china_investment": "y"
   },
   {
     "name": "Jamanxim",
@@ -319,7 +319,7 @@ var uhe = [
     "longitude": -57.05222718,
     "status": "Operação",
     "status_detail": "Operação",
-    "china_investment": "n"
+    "china_investment": "y"
   },
   {
     "name": "Cachoeira dos Patos",
@@ -361,7 +361,7 @@ var uhe = [
     "longitude": -48.38636694,
     "status": "Operação",
     "status_detail": "Operação",
-    "china_investment": "n"
+    "china_investment": "y"
   },
   {
     "name": "Ipueiras",
@@ -473,7 +473,7 @@ var uhe = [
     "longitude": -52.51666667,
     "status": "Operação",
     "status_detail": "Operação",
-    "china_investment": "n"
+    "china_investment": "y"
   },
   {
     "name": "Inferninho",
@@ -711,7 +711,7 @@ var uhe = [
     "longitude": -51.29666667,
     "status": "Operação",
     "status_detail": "Operação",
-    "china_investment": "n"
+    "china_investment": "y"
   },
   {
     "name": "Samuel",
@@ -851,7 +851,7 @@ var uhe = [
     "longitude": -53.13944444,
     "status": "Projeto",
     "status_detail": "Registro Ativo",
-    "china_investment": "n"
+    "china_investment": "y"
   },
   {
     "name": "JRN-720",
