@@ -130,6 +130,9 @@
         $("#console").toggleClass("active");
         $("#toggleConsole img").toggleClass("flip");
         });
+        $("#toggleSearch").click(function () {
+          $('#search-input').toggleClass("active");
+        });
       });
       
       var searchedName;
@@ -285,8 +288,6 @@
 
           $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor)
         });
-        
-        
         
         var marker;
 
