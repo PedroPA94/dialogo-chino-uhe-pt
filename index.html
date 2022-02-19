@@ -314,10 +314,13 @@
 
           if (uhe[plantIndex].status == 'Operação') {
             popupClass = 'Operational';
+            statusColor = '#FB9159';
           } else if (uhe[plantIndex].status == 'Projeto') {
             popupClass = 'Project';
+            statusColor = '#189B68';
           } else {
             popupClass = 'Avaliable';
+            statusColor = '#9573DE';
           };
 
           map.flyTo({
@@ -346,6 +349,8 @@
           .addTo(map);
 
           marker.togglePopup();
+          
+          $(".mapboxgl-popup-tip").css("border-bottom-color", statusColor);
         }
 
         document.getElementById("auto-box").addEventListener('click', function (e) {
