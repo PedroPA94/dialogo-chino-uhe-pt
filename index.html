@@ -127,12 +127,20 @@
       map.on('load', function()  {
         init();
         $("#toggleConsole").click(function () {
-        $("#console").toggleClass("active");
-        $("#toggleConsole img").toggleClass("flip");
+          $("#console").toggleClass("active");
+          $("#toggleConsole img").toggleClass("flip");
         });
-        $("#toggleSearch").click(function () {
-          $('#search-input').toggleClass("active");
-        });
+        if (window.matchMedia("(max-width: 800px)").matches) {
+          $("#toggleSearch").click(function () {
+            $("#console").toggleClass("active");
+            $("#toggleConsole img").toggleClass("flip");
+          });
+        }
+        if (window.matchMedia("(min-width: 801px)").matches) {
+          $("#toggleSearch").click(function () {
+            $('#search-input').toggleClass("active");
+          });
+        }       
       });
       
       var searchedName;
@@ -297,7 +305,11 @@
           var plantIndex = uhe.findIndex(plant => plant.name == searchedName);
 
           document.querySelector(".searchbar").value = "";
-          $('#search-input').toggleClass("active");
+          if (window.matchMedia("(min-width: 801px)").matches) {
+            $("#toggleSearch").click(function () {
+              $('#search-input').toggleClass("active");
+            });
+          }
 
           var popupClass;
           var statusColor;
