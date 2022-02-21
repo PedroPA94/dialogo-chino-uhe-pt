@@ -161,7 +161,7 @@ body {
 
 .circlesRegion :hover,
 .circlesLegend :hover {
-    pointer: cursor;
+    cursor: pointer;
 }
 
 .flip {
