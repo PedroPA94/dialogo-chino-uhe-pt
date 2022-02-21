@@ -159,6 +159,11 @@ body {
     margin-left: 16px;
 }
 
+.circlesRegion :hover,
+.circlesLegend :hover {
+    pointer: cursor;
+}
+
 .flip {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
@@ -444,7 +449,7 @@ body {
     /* search bar */
     
     .search-input {
-        top: -420px;
+        top: -450px;
         left: 260px;
         font-size: 11.5px;
     }
