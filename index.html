@@ -62,7 +62,7 @@
             <div class="toggle__pointer pr__pointer"></div>
           </div>
           <div class="item">
-            <h2 id="project">Projeto/Construção</h2>
+            <h2 id="project">Planejada</h2>
           </div>
         </div>
         <div class="itemWrapper">
@@ -215,11 +215,12 @@
           }
         });
         
+        // highlights plants with investment from China
         document.getElementById("investment").addEventListener('click', () => {
           map.setPaintProperty('plants', 'circle-radius', ['case', ["==", ["get", "china"], "y"], 8, 7]);
           map.setPaintProperty('plants', 'circle-opacity', ['case', ["==", ["get", "china"], "y"], 0.9, 0.75]);
-          setTimeout(() => {map.setPaintProperty('plants', 'circle-radius', 7)}, 100);
-          setTimeout(() => {map.setPaintProperty('plants', 'circle-opacity', 0.75)}, 100);            
+          setTimeout(() => {map.setPaintProperty('plants', 'circle-radius', 7),
+                            map.setPaintProperty('plants', 'circle-opacity', 0.75)}, 100);
         });
             
         var activeStatuses = ['Operação', 'Disponível', 'Projeto'];
