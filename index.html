@@ -106,7 +106,7 @@
         container: 'map',
         style: 'mapbox://styles/pedropa94/ckyxa1i51003514lbrchyvs3s',
         center: [-58, -7.5], // initial map center in [lon, lat]
-        zoom: 3,
+        zoom: 3.8,
         minZoom: 2 
       });
       
@@ -188,7 +188,12 @@
             ]
           },
           paint: {
-            'circle-stroke-color': '#000000',
+            'circle-stroke-color': [
+              "case",
+              ["==", ["get", "china"], "y"], // stroke-width based on the origin of the investment
+              '#DF4C3B',
+             '#000000'
+            ],
             'circle-stroke-width': [
               "case",
               ["==", ["get", "china"], "y"], // stroke-width based on the origin of the investment
@@ -204,9 +209,9 @@
             "circle-color": [
               "case",
               ["==", ["get", "status"], "Operação"], // sets the circle-color based on the plant status
-              "#FB9159",
+              "#189B68",
               ["==", ["get", "status"], "Projeto"],
-              '#189B68',
+              '#FB9159',
               '#9573DE'
             ],
             'circle-radius': 7,
@@ -275,10 +280,10 @@
           // checks the feature status to set the popup h3 background-color and tip color
           if (status == 'Operação') {
             popupClass = 'Operational';
-            statusColor = '#FB9159';
+            statusColor = '#189B68';
           } else if (status == 'Projeto') {
             popupClass = 'Project';
-            statusColor = '#189B68';
+            statusColor = '#FB9159';
           } else {
             popupClass = 'Avaliable';
             statusColor = '#9573DE';
@@ -317,10 +322,10 @@
 
           if (uhe[plantIndex].status == 'Operação') {
             popupClass = 'Operational';
-            statusColor = '#FB9159';
+            statusColor = '#189B68';
           } else if (uhe[plantIndex].status == 'Projeto') {
             popupClass = 'Project';
-            statusColor = '#189B68';
+            statusColor = '#FB9159';
           } else {
             popupClass = 'Avaliable';
             statusColor = '#9573DE';
