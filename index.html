@@ -188,16 +188,11 @@
             ]
           },
           paint: {
-            'circle-stroke-color': [
-              "case",
-              ["==", ["get", "china"], "y"], // stroke-width based on the origin of the investment
-              '#DF4C3B',
-             '#000000'
-            ],
+            'circle-stroke-color': '#000000',
             'circle-stroke-width': [
               "case",
               ["==", ["get", "china"], "y"], // stroke-width based on the origin of the investment
-              2,
+              2.5,
               1
             ],
             'circle-stroke-opacity': [
