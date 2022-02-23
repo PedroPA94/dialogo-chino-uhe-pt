@@ -27,10 +27,10 @@
         <span id="toggleConsole">
           <img src="./img/toggle.png"/>
         </span>
-        <h1 id='title'>Grandes Hidrelétricas na Amazônia</h1>
+        <h1 id='title'>Grandes hidrelétricas na Amazônia (1975-2022)</h1>
         <div class='itemWrapper'>
           <img class='item2' src="./img/legend.svg"/>
-          <h2 class="legend">Amazônia Legal</h2>
+          <h2 class="legend">Amazônia Legal*</h2>
         </div>
         <div class="itemWrapper" id="investment">
           <div class="itemWrapper">
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class='row itemWrapper'>
-          <h2 class="subtitle">Situação da hidrelétrica</h2>
+          <h2 class="subtitle">Status da hidrelétrica</h2>
         </div>
         <div class="itemWrapper">
           <div class='row toggle item filters' id="filterOperational">
@@ -72,15 +72,16 @@
             <div class="toggle__pointer av__pointer"></div>
           </div>
           <div class="item">
-            <h2 id="avaliable">Potencial identificado*</h2>
+            <h2 id="avaliable">Potencial identificado**</h2>
           </div>
         </div>
         <div class="instruction itemWrapper" id="instruction">
-          <p class="item">Clique nos círculos para ver o nome da usina e mais informações</p>
+          <p class="item">Clique nos círculos para informações sobre cada usina</p>
         </div>
         <div class='instruction itemWrapper'>
-          <h2 class='dataSource'>Fonte: SIGEL/ANEEL | Apenas UHEs <br>
-                                 *Locais classificados como "Eixo Disponível" pela Aneel</h2>
+          <h2 class='dataSource'>Fonte: SIGEL/ANEEL | Apenas UHEs<br>
+                                 *A Amazônia Legal abrange nove estados do Norte e Centro-Oeste que compõem a bacia amazônica<br>
+                                 **Áreas de interesse identificadas pela Agência Nacional de Energia Elétrica</h2>
         </div>
       </div>
     </div>
@@ -157,13 +158,11 @@
               'latitude': +row.latitude,
               'owner': row.owner,
               'year': row.operation,
-              'ceg': row.ceg,
               'status': row.status,
               'name': row.name,
               'river': row.river,
               'power': row.power_mw,
               'china': row.china_investment,
-              'detailedStatus': row.status_detail
             },
             'geometry': {
               'type': 'Point',
@@ -263,7 +262,6 @@
           var river = e.features[0].properties.river;
           var owner = e.features[0].properties.owner;
           var status = e.features[0].properties.status;
-          var detailedStatus = e.features[0].properties.detailedStatus;
           var year = e.features[0].properties.year;
           var power = e.features[0].properties.power;
 
@@ -295,7 +293,6 @@
                   '<h4><b>Início da operação</b>: ' + year + '<br>' +
                   '<b>Potência</b>: ' + power.slice(0, -3) + 'MW<br>' + 
                   '<b>Rio</b>: ' + river + '<br>' +
-                  '<b>Situação</b>: ' + detailedStatus + '<br>' +
                   '<b>Proprietário(s)</b>: ' + owner + '</h4>')
           .setLngLat([longitude, latitude])
           .addTo(map);
@@ -350,7 +347,6 @@
               '<h4><b>Início da operação</b>: ' + uhe[plantIndex].operation + '<br>' +
               '<b>Potência</b>: ' + geoJsonData.features[plantIndex].properties.power.slice(0, -3) + 'MW<br>' +
               '<b>Rio</b>: ' + uhe[plantIndex].river + '<br>' +
-              '<b>Situação</b>: ' + uhe[plantIndex].status_detail + '<br>' +
               '<b>Proprietário(s)</b>: ' + uhe[plantIndex].owner + '</h4>'))
           .addTo(map);
 
