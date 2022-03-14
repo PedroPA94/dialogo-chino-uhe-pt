@@ -449,7 +449,7 @@ body {
     /* search bar */
     
     .search-input {
-        top: -480px;
+        top: -500px;
         left: 260px;
         font-size: 11.5px;
     }
