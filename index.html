@@ -75,6 +75,19 @@
             <h2 id="avaliable">Potencial identificado**</h2>
           </div>
         </div>
+        <div class='row itemWrapper'>
+          <h2 class="subtitle">Potência</h2>
+        </div>
+        <div class="powerLegend">
+          <span id="circleMin">1MW</span><span id="circleMax">11.233MW</span>
+        </div>
+        <div class="sliderWrapper">
+          <input class="row slider" id="powerSlider" type="range" step=1 min=1 max=5000 value=1>
+          <div class="sliderLegend">
+            <div><span id="minPower">1MW</span><span id="maxPower">5000MW+</span></div>
+          </div>
+          <p>Potência mínima: <span id="powerValue">1MW</span></p>
+        </div>
         <div class="instruction itemWrapper" id="instruction">
           <p class="item">Clique nos círculos para informações sobre cada usina</p>
         </div>
@@ -144,6 +157,9 @@
       function init() {   
 
         $('#loading').hide();
+        
+        var min_pow = 1 
+        var max_pow = 11233
 
         var geoJsonData = {
           'type': 'FeatureCollection',
@@ -163,6 +179,7 @@
               'river': row.river,
               'power': row.power_mw,
               'china': row.china_investment,
+              'power_int': parseInt(row.power_mw.slice(0, -3).replace(/\./, '')),
             },
             'geometry': {
               'type': 'Point',
@@ -209,19 +226,19 @@
               '#FB9159',
               '#9573DE'
             ],
-            'circle-radius': 7,
+            'circle-radius': [
+              "interpolate",
+              ['linear'],
+              ['get', 'power_int'],
+              min_pow,
+              5,
+              max_pow,
+              25
+            ],
             'circle-opacity': 0.75
           }
         });
-        
-        // highlights plants with investment from China
-        document.getElementById("investment").addEventListener('click', () => {
-          map.setPaintProperty('plants', 'circle-radius', ['case', ["==", ["get", "china"], "y"], 8, 7]);
-          map.setPaintProperty('plants', 'circle-opacity', ['case', ["==", ["get", "china"], "y"], 0.9, 0.75]);
-          setTimeout(() => {map.setPaintProperty('plants', 'circle-radius', 7),
-                            map.setPaintProperty('plants', 'circle-opacity', 0.75)}, 100);
-        });
-            
+
         var activeStatuses = ['Operação', 'Disponível', 'Projeto'];
           
         // filters the layer based on the statuses toggled on the console
@@ -244,7 +261,13 @@
 
         statusFilter('filterOperational', 'Operação')
         statusFilter('filterProject', 'Projeto')
-        statusFilter('filterAvaliable', 'Disponível')         
+        statusFilter('filterAvaliable', 'Disponível')    
+        
+        // filters the layer based on plant power
+        document.getElementById("powerSlider").addEventListener('input', function (e) {
+          map.setFilter('plants', ['>=', ['get', 'power_int'], parseInt(e.target.value)]);
+          document.getElementById("powerValue").innerText = (e.target.value + 'MW')
+        });
 
         map.on('mouseenter', 'plants', (e) => {
           map.getCanvas().style.cursor = 'pointer';
