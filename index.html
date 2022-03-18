@@ -240,6 +240,9 @@
         });
 
         var activeStatuses = ['Operação', 'Disponível', 'Projeto'];
+        var sliderValue = parseInt(document.getElementById("powerSlider").value)
+        var statusMapboxFilter = ['in', ['get', 'status'], ['literal', activeStatuses]];
+        var powerMapboxFilter = ['>=', ['get', 'power_int'], sliderValue];
           
         // filters the layer based on the statuses toggled on the console
         function statusFilter(filterName, statusName) {
@@ -248,16 +251,16 @@
               if(activeStatuses.includes(statusName) == false) {
                 activeStatuses.push(statusName);
               }
-              map.setFilter('plants', ['in', ['get', 'status'], ['literal', activeStatuses]]);
+              map.setFilter('plants', ['all', statusMapboxFilter, powerMapboxFilter]);
             } else {
               if(activeStatuses.includes(statusName)) {
                 index = activeStatuses.indexOf(statusName);
                 activeStatuses.splice(index, 1);
               }
-              map.setFilter('plants', ['in', ['get', 'status'], ['literal', activeStatuses]]);
+              map.setFilter('plants', ['all', statusMapboxFilter, powerMapboxFilter]);
             };
           });
-        };                 
+        };                       
 
         statusFilter('filterOperational', 'Operação')
         statusFilter('filterProject', 'Projeto')
@@ -265,9 +268,11 @@
         
         // filters the layer based on plant power
         document.getElementById("powerSlider").addEventListener('input', function (e) {
-          map.setFilter('plants', ['>=', ['get', 'power_int'], parseInt(e.target.value)]);
+          sliderValue = parseInt(e.target.value);
+          powerMapboxFilter = ['>=', ['get', 'power_int'], sliderValue];
+          map.setFilter('plants', ['all', statusMapboxFilter, powerMapboxFilter]);
           document.getElementById("powerValue").innerText = (e.target.value + 'MW')
-        });
+        })
 
         map.on('mouseenter', 'plants', (e) => {
           map.getCanvas().style.cursor = 'pointer';
