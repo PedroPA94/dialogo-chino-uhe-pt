@@ -1741,7 +1741,7 @@ var uhe = [
     "ceg": "UHE.PH.MT.027417-8",
     "river": "Aripuanã",
     "power_kw": "800,00",
-    "power_mw": "0,80",
+    "power_mw": "1,00",
     "operation": 1987,
     "latitude": -10.19583333,
     "longitude": -59.48916667,
